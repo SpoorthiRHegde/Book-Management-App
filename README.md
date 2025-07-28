@@ -177,5 +177,3 @@ book-management-app/
 ---
 
 © 2025 Book Management App – i18n Implementation
-
-fvd
