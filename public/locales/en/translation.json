@@ -1,0 +1,12 @@
+{
+  "appTitle": "Book Management System",
+  "language": "Language",
+  "addBook": "Add Book",
+  "editBook": "Edit Book",
+  "deleteBook": "Delete",
+  "save": "Save",
+  "cancel": "Cancel",
+  "title": "Title",
+  "author": "Author",
+  "errorRequired": "This field is required"
+}

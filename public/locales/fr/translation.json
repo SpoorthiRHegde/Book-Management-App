@@ -1,0 +1,12 @@
+{
+  "appTitle": "Système de gestion des livres",
+  "language": "Langue",
+  "addBook": "Ajouter un livre",
+  "editBook": "Modifier le livre",
+  "deleteBook": "Supprimer",
+  "save": "Enregistrer",
+  "cancel": "Annuler",
+  "title": "Titre",
+  "author": "Auteur",
+  "errorRequired": "Ce champ est obligatoire"
+}

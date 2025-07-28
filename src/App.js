@@ -1,25 +1,66 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import BookForm from './components/BookForm';
+import LanguageSwitcher from './components/LanguageSwitcher';
+import { validateBook } from './utils/validate';
+import { useTranslation } from 'react-i18next';
+import './styles/App.css';
 
-function App() {
+const App = () => {
+  const { t } = useTranslation();
+  const [book, setBook] = useState({ title: '', author: '' });
+  const [books, setBooks] = useState([]); // 🆕 to store multiple books
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    setBook({ ...book, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validateBook(book);
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length === 0) {
+      setBooks([...books, book]);
+      setBook({ title: '', author: '' }); // Clear form
+      setErrors({});
+    }
+  };
+
+  const handleDelete = (index) => {
+    const updatedBooks = books.filter((_, i) => i !== index);
+    setBooks(updatedBooks);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{t('appTitle')}</h1>
+      <LanguageSwitcher />
+
+      <BookForm
+        book={book}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+        errors={errors}
+      />
+
+      {books.length > 0 && (
+        <div className="book-list">
+          <h2>{t('addBook')}</h2>
+          <ul>
+            {books.map((b, index) => (
+              <li key={index}>
+                <strong>{t('title')}:</strong> {b.title} |{' '}
+                <strong>{t('author')}:</strong> {b.author}
+                <button className="delete-btn" onClick={() => handleDelete(index)}>
+                  {t('deleteBook')}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default App;
